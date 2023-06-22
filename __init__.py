@@ -35,16 +35,17 @@ class Hangman(MycroftSkill):
                     letter_guess = response[7:8]
                     self.speak("You guessed \"" + response + "\"")
 
-                    if self.chosen_word.find(letter_guess) > -1:
-                        if letter_guess in self.guessed_letters:
-                            self.speak("You already guessed that letter.")
-                        else:
+                    if not letter_guess in self.chosen_word:
+                        if self.chosen_word.find(letter_guess) > -1:
                             self.speak("That is correct.")
                             self.guessed_letters.append(letter_guess)
-
+                        else:
+                            self.lives_left -= 1
+                            self.speak("That is incorrect. You now have " + str(self.lives_left) + " lives left.")
+                            self.guessed_letters.append(letter_guess)
                     else:
-                        self.lives_left -= 1
-                        self.speak("That is incorrect. You now have " + str(self.lives_left) + " lives left.")
+                        self.speak("You already guessed that letter.")
+                        
                 else:
                     self.speak("That is not a valid letter.")
 
