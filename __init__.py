@@ -19,9 +19,7 @@ class Hangman(MycroftSkill):
             has_won = True
 
             for i in range(len(self.chosen_word)):
-                if self.chosen_word[i] in self.guessed_letters:
-                    self.speak(self.chosen_word[i])
-                else:
+                if not self.chosen_word[i] in self.guessed_letters:
                     has_won = False 
 
             if has_won:
@@ -38,8 +36,12 @@ class Hangman(MycroftSkill):
                     self.speak("You guessed \"" + response + "\"")
 
                     if self.chosen_word.find(letter_guess) > -1:
-                        self.speak("That is correct.")
-                        self.guessed_letters.append(letter_guess)
+                        if letter_guess in self.guessed_letters:
+                            self.speak("You already guessed that letter.")
+                        else:
+                            self.speak("That is correct.")
+                            self.guessed_letters.append(letter_guess)
+
                     else:
                         self.lives_left -= 1
                         self.speak("That is incorrect. You now have " + str(self.lives_left) + " lives left.")
