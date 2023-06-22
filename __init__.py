@@ -10,7 +10,7 @@ class Hangman(MycroftSkill):
     def handle_hangman(self, message):
         # pick a random word
         self.chosen_word = self.random_words[randint(0, len(self.random_words)-1)]
-        self.speak_dialog('choosen_word', data={"length": len(self.chosen_word)})
+        self.speak_dialog('chosen_word', data={"length": len(self.chosen_word)})
 
 def create_skill():
     return Hangman()
