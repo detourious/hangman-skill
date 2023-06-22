@@ -44,7 +44,7 @@ class Hangman(MycroftSkill):
                         self.lives_left -= 1
                         self.speak("That is incorrect. You now have " + str(self.lives_left) + " lives left.")
                 else:
-                    self.speak("bad")
+                    self.speak("That is not a valid letter.")
 
         if self.win_state:
             self.speak("You win!")
