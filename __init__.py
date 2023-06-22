@@ -34,7 +34,7 @@ class Hangman(MycroftSkill):
                 self.speak('you said ' + response)
 
                 if self.voc_match(response, "valid_letters", None, True):
-                    letter_guess = response[8:8]
+                    letter_guess = response[7:8]
                     self.speak("You guessed \"" + letter_guess + "\"")
 
                     if self.chosen_word.find(letter_guess) > -1:
