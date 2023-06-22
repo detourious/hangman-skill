@@ -16,16 +16,30 @@ class Hangman(MycroftSkill):
         self.speak_dialog('chosen_word', data={"length": len(self.chosen_word)})
         
         while self.lives_left > 0 and not self.win_state:
+            has_won = True
+
+            for i in range(len(self.chosen_word)):
+                if self.chosen_word[i] in self.guessed_letters:
+                    self.speak(self.chosen_word[i])
+                else:
+                    has_won = False 
+
+            if has_won:
+                self.win_state = True
+                self.stop()
+                break
+
             response = self.get_response('guess_letter', num_retries=0)
             if response is not None:
                 self.speak('you said ' + response)
-                
+
                 if self.voc_match(response, "valid_letters", None, True):
                     letter_guess = response[7:7]
                     self.speak("You guessed " + letter_guess)
 
                     if self.chosen_word.find(letter_guess) > -1:
                         self.speak("That is correct.")
+                        self.guessed_letters.append(letter_guess)
                     else:
                         self.lives_left -= 1
                         self.speak("That is incorrect. You now have " + str(self.lives_left) + " lives left.")
