@@ -7,6 +7,7 @@ class Hangman(MycroftSkill):
 
     @intent_file_handler('hangman.intent')
     def handle_hangman(self, message):
+        print(message)
         self.speak_dialog('hangman')
 
 
