@@ -17,10 +17,7 @@ class Hangman(MycroftSkill):
         while self.lives_left > 0 and not self.win_state:
             response = self.get_response('guess_letter', num_retries=0)
             if response is not None:
-                if response.find("letter"):
-                    self.speak(f'valid letter {response[8:8]}')
-                else:
-                    self.speak('invalid letter')
+                self.speak('you said ' + response)
             else:
                 self.speak('i dont know lol')
 
