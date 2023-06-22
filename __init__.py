@@ -10,15 +10,23 @@ class Hangman(MycroftSkill):
     def handle_hangman(self, message):
         # pick a random word
         self.chosen_word = self.random_words[randint(0, len(self.random_words)-1)]
+        self.lives_left = 6
+        self.win_state = False
         self.speak_dialog('chosen_word', data={"length": len(self.chosen_word)})
-        response = self.get_response('guess_letter')
-        if not response is None:
-            if response[0:5] == "letter":
-                self.speak(f'valid letter {response[7:7]}')
+        
+        while self.lives_left > 0 and not self.win_state:
+            response = self.get_response('guess_letter', num_retries=0)
+            if response is not None:
+                if response[0:5] == "letter":
+                    self.speak(f'valid letter {response[7:7]}')
+                else:
+                    self.speak('invalid letter')
             else:
-                self.speak('invalid letter')
-        else:
-            self.speak('i dont know lol')
+                self.speak('i dont know lol')
+
+    def stop(self):
+        self.lives_left = 0
+        self.win_state = True
 
 def create_skill():
     return Hangman()
