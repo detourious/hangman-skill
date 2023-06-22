@@ -19,7 +19,9 @@ class Hangman(MycroftSkill):
             if response is not None:
                 self.speak('you said ' + response)
                 if self.voc_match(response, "valid_letters", None, True):
+                    letter_guess = response[8:8]
                     self.speak("good")
+                    self.speak("the letter is " + letter_guess)
                 else:
                     self.speak("bad")
 
